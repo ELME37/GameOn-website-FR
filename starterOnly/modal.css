@@ -555,6 +555,7 @@ footer {
   }
 }
 
+/*ajout responsive*/
 @media screen and (max-width: 600px) {
   .hero-headline {
     font-size: 3.5rem;
