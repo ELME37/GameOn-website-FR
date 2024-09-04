@@ -529,7 +529,7 @@ footer {
 
 .errormessage {
   display: flex;
-  justify-content: end;
+  justify-content: start;
   margin-top: 4px;
   font-size: 10px;
   color: red;
