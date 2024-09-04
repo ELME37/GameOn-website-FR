@@ -7,17 +7,32 @@ function editNav() {
   }
 }
 
-// DOM Elements
+/**************************************************************************
+ * Déclarations des variables
+ *************************************************************************/
 const modalbg = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
+const openModalBtn = document.querySelectorAll(".modal-btn");
+const closeModalBtn = document.querySelector(".close")
+const modalContent = document.querySelector(".content");
 
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
-// launch modal form
-function launchModal() {
+//Ouverture de la modal
+function openModal (){
   modalbg.style.display = "block";
 }
 
+// Fermeture de la modal avec la croix
+function closeModal () {
+  modalContent.classList.add("closing");
 
+  // Utilise setTimeout pour retarder la disparition réelle de la modale jusqu'à ce que l'animation soit terminée
+  setTimeout(() => {
+    modalContent.parentElement.style.display = "none";
+    // Retire la classe de fermeture pour les ouvertures futures
+    modalContent.classList.remove("closing");
+  }, 800);
+}
+
+
+// Initialisation des Event Listener aux boutons de la modal
+openModalBtn.forEach((btn) => btn.addEventListener("click", openModal));
+closeModalBtn.addEventListener('click' , () => {closeModal()})
