@@ -1,3 +1,5 @@
+import { showConfirmationMessage } from './confirmation.js';
+
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('reserve-form');
 
@@ -8,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Supprimer les anciens messages d'erreur
     document.querySelectorAll('.errormessage').forEach((element) => element.remove());
+    document.querySelectorAll('.error-border').forEach((element) => element.classList.remove('error-border'));
 
     // Vérification du prénom
     const firstName = document.getElementById('first');
@@ -32,8 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Vérification de la date de naissance
     const birthdate = document.getElementById('birthdate');
-    if (!birthdate.value) {
-      showError(birthdate, 'Veuillez entrer votre date de naissance.');
+    if (!birthdate.value || !validateAge(birthdate.value)) {
+      showError(birthdate, 'Vous devez avoir au moins 18 ans.');
       isValid = false;
     }
 
@@ -72,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('Lieu :', selectedLocation ? selectedLocation.value : 'Aucun lieu sélectionné');
       console.log('Conditions d\'utilisation acceptées :', terms.checked);
 
+      showConfirmationMessage();
       // Soumettre le formulaire après le log
       form.submit();
     }
@@ -84,7 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
     errorMessage.innerText = message;
     element.parentElement.appendChild(errorMessage);
 
-    // Ajouter un événement "input" ou "change" pour supprimer l'erreur si l'utilisateur modifie le champ
+    // Ajoute une bordure rouge
+    element.classList.add('error-border');
+
+    // Ajoute un événement "input" ou "change" pour supprimer l'erreur si l'utilisateur modifie le champ
     element.addEventListener('input', () => removeError(element));
     element.addEventListener('change', () => removeError(element));
   }
@@ -95,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (error) {
       error.remove();
     }
+    element.classList.remove('error-border');
   }
 
   // Fonction pour valider un email avec une expression régulière
@@ -103,3 +111,14 @@ document.addEventListener('DOMContentLoaded', () => {
     return re.test(String(email).toLowerCase());
   }
 });
+
+function validateAge(birthdate) {
+  const birthDate = new Date(birthdate);
+  const today = new Date();
+  const age = today.getFullYear() - birthDate.getFullYear();
+  const monthDifference = today.getMonth() - birthDate.getMonth();
+  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age >= 18;
+}

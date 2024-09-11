@@ -575,3 +575,7 @@ footer {
     margin: 20% auto;
   }
 }
+
+.error-border {
+  border: 2px #ff0000 solid;
+}
