@@ -14,10 +14,17 @@ const modalbg = document.querySelector(".bground");
 const openModalBtn = document.querySelectorAll(".modal-btn");
 const closeModalBtn = document.querySelector(".close")
 const modalContent = document.querySelector(".content");
+const form = document.getElementById('reserve-form');
 
 //Ouverture de la modal
 function openModal (){
+  const confirmationMessage = document.querySelector('.confirmation-message');
+  if (confirmationMessage) {
+    confirmationMessage.remove(); // Supprime le message de confirmation s'il existe
+  }
   modalbg.style.display = "block";
+  form.style.display = 'block';
+  form.reset(); // Réinitialise le formulaire
 }
 
 // Fermeture de la modal avec la croix

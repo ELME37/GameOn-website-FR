@@ -1,4 +1,4 @@
-import { showConfirmationMessage } from './confirmation.js';
+import { showConfirmationMessage } from './showConfirmationMessage.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('reserve-form');
@@ -76,8 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('Conditions d\'utilisation acceptées :', terms.checked);
 
       showConfirmationMessage();
-      // Soumettre le formulaire après le log
-      form.submit();
     }
   });
 
